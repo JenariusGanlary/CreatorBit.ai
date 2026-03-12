@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Lightbulb, PencilLine, CalendarDays, Cpu, Activity, CheckCircle2 } from "lucide-react";
+import Reveal from "./Reveal";
 
 // --- Mockup UI Components (Abstract representations of the software) ---
 
@@ -143,17 +143,9 @@ interface FeatureBlockProps {
 const FeatureBlock = ({ title, description, icon, mockup, align, glowColor }: FeatureBlockProps) => {
   const isLeft = align === "left";
 
-  return (
-    <div className={`flex flex-col lg:flex-row items-center gap-12 lg:gap-24 w-full ${isLeft ? '' : 'lg:flex-row-reverse'}`}>
-      
-      {/* Text Content */}
-      <motion.div 
-        initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
-        className="w-full lg:w-1/2 flex flex-col"
-      >
+  const textContent = (
+    <div className="flex flex-col justify-center">
+      <Reveal>
         <div className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl glass-card border-white/10 mb-6 shadow-[0_0_30px_${glowColor}]`}>
           {icon}
         </div>
@@ -163,37 +155,51 @@ const FeatureBlock = ({ title, description, icon, mockup, align, glowColor }: Fe
         <p className="text-lg text-slate-400 leading-relaxed max-w-lg">
           {description}
         </p>
-      </motion.div>
+      </Reveal>
+    </div>
+  );
 
-      {/* UI Preview Area */}
-      <motion.div 
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-        className="w-full lg:w-1/2 relative"
-      >
-        {/* Glow behind the preview */}
-        <div 
-          className="absolute inset-0 blur-[80px] rounded-full opacity-30 pointer-events-none" 
-          style={{ backgroundColor: glowColor.replace('rgba(', '').replace(')', '').split(',').slice(0,3).join(',') }} 
-        />
-        
-        {/* The Mockup "Window" */}
-        <div className="relative w-full aspect-[4/3] rounded-2xl glass-card border border-white/10 overflow-hidden bg-slate-900/50 shadow-2xl">
-          {/* Window Header */}
-          <div className="w-full h-10 border-b border-white/10 bg-white/5 flex items-center px-4 gap-2">
-            <div className="w-3 h-3 rounded-full bg-rose-500/50" />
-            <div className="w-3 h-3 rounded-full bg-amber-500/50" />
-            <div className="w-3 h-3 rounded-full bg-emerald-500/50" />
-          </div>
-          {/* Window Content */}
-          <div className="w-full h-[calc(100%-2.5rem)]">
-            {mockup}
+  const previewContent = (
+    <div className="flex items-center justify-center">
+      <Reveal delay={0.1}>
+        <div className="relative group">
+          {/* Glow behind the card */}
+          <div 
+            className="absolute inset-0 blur-[80px] rounded-full opacity-30 pointer-events-none" 
+            style={{ backgroundColor: glowColor.replace('rgba(', '').replace(')', '').split(',').slice(0,3).join(',') }} 
+          />
+          
+          {/* Preview Card - consistent dimensions */}
+          <div className="relative w-[420px] max-w-full h-[240px] rounded-xl border border-white/10 bg-white/[0.02] shadow-lg overflow-hidden transition-transform duration-300 group-hover:-translate-y-1">
+            {/* Window Header Bar */}
+            <div className="w-full h-8 border-b border-white/10 bg-white/5 flex items-center px-3 gap-1.5 shrink-0">
+              <div className="w-2.5 h-2.5 rounded-full bg-rose-500/50" />
+              <div className="w-2.5 h-2.5 rounded-full bg-amber-500/50" />
+              <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/50" />
+            </div>
+            {/* Card Content */}
+            <div className="w-full h-[calc(100%-2rem)] overflow-hidden">
+              {mockup}
+            </div>
           </div>
         </div>
-      </motion.div>
+      </Reveal>
+    </div>
+  );
 
+  return (
+    <div className="grid md:grid-cols-2 gap-16 items-center w-full">
+      {isLeft ? (
+        <>
+          {textContent}
+          {previewContent}
+        </>
+      ) : (
+        <>
+          {previewContent}
+          {textContent}
+        </>
+      )}
     </div>
   );
 };
@@ -202,32 +208,25 @@ const FeatureBlock = ({ title, description, icon, mockup, align, glowColor }: Fe
 
 export default function NeuralFeatures() {
   return (
-    <section id="features" className="py-32 relative bg-[#030014] overflow-hidden">
+    <section id="features" className="py-20 relative bg-[#030014] overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-32">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold text-white mb-6"
-          >
-            Everything you need to <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">run your creator system</span>
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-lg text-slate-400"
-          >
-            Stop jumping between 10 different apps. CreatorBit brings your entire workflow into one intelligent interface.
-          </motion.p>
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <Reveal>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Everything you need to <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">run your creator system</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="text-lg text-slate-400">
+              Stop jumping between 10 different apps. CreatorBit brings your entire workflow into one intelligent interface.
+            </p>
+          </Reveal>
         </div>
 
         {/* Alternating Feature Blocks */}
-        <div className="flex flex-col gap-32 md:gap-40">
+        <div className="flex flex-col gap-16 md:gap-20">
           
           <FeatureBlock 
             title="Idea Engine"

@@ -3,7 +3,7 @@ import { Brain, Sparkles, Zap, Cpu, CalendarClock, Code2 } from "lucide-react";
 
 export default function HeroBrain() {
   return (
-    <section className="relative min-h-screen pt-32 pb-20 flex flex-col items-center justify-center overflow-hidden">
+    <section className="relative pt-28 pb-20 flex flex-col items-center justify-center overflow-hidden">
       {/* Background Neural Grid */}
       <div className="absolute inset-0 neural-grid opacity-30 mask-image-b" />
 
@@ -11,7 +11,7 @@ export default function HeroBrain() {
       <div className="relative z-20 max-w-5xl mx-auto px-6 text-center mt-12">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border-violet-500/30 text-violet-300 text-sm font-medium mb-8">
           <Sparkles className="w-4 h-4 text-violet-400" />
-          <span>The world's first AI Operating System for Creators</span>
+          <span>The world&apos;s first AI Operating System for Creators</span>
         </div>
 
         <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6">

@@ -183,13 +183,13 @@ function SystemDiagram() {
 
 export default function HeroSystemPanel() {
   return (
-    <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#030014]">
+    <section className="relative w-full flex items-center justify-center overflow-hidden bg-[#030014]">
       
       {/* SaaS Background Overlay (Dark gradient & subtle grid) */}
       <div className="absolute inset-0 neural-grid opacity-20 pointer-events-none z-0" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.15),transparent_60%)] z-0" />
 
-      <div className="max-w-7xl mx-auto px-6 w-full relative z-10 flex flex-col lg:flex-row items-center pt-24 pb-12">
+      <div className="max-w-7xl mx-auto px-6 w-full relative z-10 flex flex-col lg:flex-row items-center pt-28 pb-20">
         
         {/* Left Column: Text Content */}
         <div className="w-full lg:w-5/12 text-left z-20 flex flex-col justify-center pt-10 lg:pt-0">
