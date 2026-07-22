@@ -49,7 +49,7 @@ export default function Footer() {
       
       <div className="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-white/5 text-center flex flex-col md:flex-row items-center justify-between text-slate-600 text-xs">
         <p>&copy; {new Date().getFullYear()} CreatorBit. All rights reserved.</p>
-        <p className="mt-2 md:mt-0">Built for the future of creation.</p>
+        <p className="mt-2 md:mt-0">Built for the future of creation by GanlaryLabs.</p>
       </div>
     </footer>
   );
